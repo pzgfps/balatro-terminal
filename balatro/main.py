@@ -1,0 +1,91 @@
+import random
+import WConio2 as W
+from WConio2 import *
+
+LOGO_BALATRO = [
+    "|--------------------------------------------------------|",
+    "|                                                        |",
+    "|    █████   ████  ██      ████  ██████ █████   ████     |",
+    "|    ██  ██ ██  ██ ██     ██  ██   ██   ██  ██ ██  ██    |",
+    "|    ██  ██ ██  ██ ██     ██  ██   ██   ██  ██ ██  ██    |",
+    "|    █████  ██████ ██     ██████   ██   █████  ██  ██    |",
+    "|    ██  ██ ██  ██ ██     ██  ██   ██   ██ ██  ██  ██    |",
+    "|    ██  ██ ██  ██ ██     ██  ██   ██   ██  ██ ██  ██    |",
+    "|    █████  ██  ██ ██████ ██  ██   ██   ██  ██  ████     |",
+    "|                                                        |",
+    "|--------------------------------------------------------|"
+]
+
+OPCOES = ["Continuar", "Novo Jogo", "Configurações"]   
+ALTURA, LARGURA = 33, 147           # a altura máxima é 30 e a largura é 145 (aparentemente)
+
+RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] # uma lista pra criar o poder de rank das cartas 
+                                                                           # quanto maior o indice, maior o poder
+
+NAIPES = {                  # isso aqui é um dicionario, não uma lista, onde ela diz o naipe e a cor das cartas
+    "copas"  : ("♥", W.RED),     # o RED e o BLACK
+    "ouros"  : ("♦", W.RED),
+    "paus"   : ("♣", W.BLACK),
+    "espadas": ("♠", W.BLACK)
+}
+
+def escrever(texto):                            # é necessário criar uma função de "escrever" pois o cputs não suporte imagens de 3 bytes
+    print(texto, end="", flush=True)            # e é um saco ter que colocar esse end="", flush=True toda vez
+
+def criar_baralho():    # função para criar um baralho embaralhado
+    baralho = [(rank, naipe) for naipe in NAIPES for rank in RANKS] # o rank e o naipe são constantes (o define em C quase)
+    random.shuffle(baralho)
+    return baralho
+
+def desenhar_logo():
+    x, y = 45, 3
+    for i, texto in enumerate(LOGO_BALATRO):
+        W.gotoxy(x, y + i)
+        escrever(texto)
+
+def menu_borda():           # essa função serve pra criar as bordas do menu (as linhas horizontas e verticais "delimitantes")
+    W.gotoxy(1,1)
+    escrever(LARGURA * "-")
+    for linha in range(ALTURA):
+        W.gotoxy(1, 2 + linha)
+        escrever("|" + (LARGURA - 2) * " " + "|")
+    W.gotoxy(1, 2 + ALTURA)
+    escrever(LARGURA * "-")
+
+def menu_opcoes(selecionada):          # função que serve para mostrar as opções do menu (Continuar jogo, Novo Jogo e Configurações)
+    for i, texto in enumerate(OPCOES):
+        W.gotoxy(63, 16 + i * 1)
+        if i == selecionada:
+            W.textbackground(W.LIGHTGRAY)
+            W.textcolor(W.BLACK)
+        escrever(texto.center(22))
+        W.textbackground(W.BLACK)
+        W.textcolor(W.LIGHTGRAY)
+        
+def menu():             # essa função serve para chamar as funções de borda_menu e opcoes_menu (ela cria o menu de uma vez)
+    W.clrscr()
+    W.setcursortype(W._NOCURSOR)
+    menu_borda()
+    desenhar_logo()
+    selecionada = 0
+    while (True):
+        menu_opcoes(selecionada)
+        codigo, letra = W.getch()                 # espera a tecla
+        if codigo == 72 or letra == "w":          # cima
+            selecionada = (selecionada - 1) % len(OPCOES)
+        elif codigo == 80 or letra == "s":        # baixo
+            selecionada = (selecionada + 1) % len(OPCOES)
+        elif codigo == 13:                        # Enter
+            return selecionada
+    
+
+opcao = menu()
+if opcao == 0:
+    # print("Você escolheu continuar o jogo") # testar se a opção esta indo certa
+    pass   # continuar jogo
+elif opcao == 1:
+    # print("Você escolheu iniciar um novo jogo") # testar se a opção esta indo certa
+    pass   # novo jogo
+elif opcao == 2:
+    # print("Configurações") # testar se a opção esta indo certa
+    pass   # configurações
