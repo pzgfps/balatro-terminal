@@ -23,7 +23,7 @@ RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] # uma
                                                                            # quanto maior o indice, maior o poder
 
 NAIPES = {                  # isso aqui é um dicionario, não uma lista, onde ela diz o naipe e a cor das cartas
-    "copas"  : ("♥", W.RED),     # o RED e o BLACK
+    "copas"  : ("♥", W.RED),     # o RED e o BLACK são da biblioteca WConio2
     "ouros"  : ("♦", W.RED),
     "paus"   : ("♣", W.BLACK),
     "espadas": ("♠", W.BLACK)
