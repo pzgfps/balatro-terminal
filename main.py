@@ -14,5 +14,5 @@ def main():
                 print("Você escolheu fechar o jogo, até mais!")
                 break    
 
-if __name__ == "__main__":
+if __name__ == "__main__":      # comentario atoa
     main()
