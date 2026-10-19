@@ -16,8 +16,10 @@ LOGO_BALATRO = [
     "|--------------------------------------------------------|"
 ]
 
-OPCOES = ["Continuar", "Novo Jogo", "Configurações"]   
-ALTURA, LARGURA = 33, 147           # a altura máxima é 30 e a largura é 145 (aparentemente)
+OPCOES_MENU = ["Continuar", "Novo Jogo", "Configurações"]   # lista constante para mostrar as opções da aba menu
+OPCOES_CONFIG = ["Voltar", "Sair"]                          # lista constante para mostrar as opções da aba de configurações
+
+ALTURA, LARGURA = 48, 208           # a altura máxima é 30 e a largura é 145 (aparentemente)
 
 RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] # uma lista pra criar o poder de rank das cartas 
                                                                            # quanto maior o indice, maior o poder
@@ -37,13 +39,13 @@ def criar_baralho():    # função para criar um baralho embaralhado
     random.shuffle(baralho)
     return baralho
 
-def desenhar_logo():
-    x, y = 45, 3
+def desenhar_logo():        # função pra desenhar a logo na tela 
+    x, y = 76, 4
     for i, texto in enumerate(LOGO_BALATRO):
         W.gotoxy(x, y + i)
         escrever(texto)
 
-def menu_borda():           # essa função serve pra criar as bordas do menu (as linhas horizontas e verticais "delimitantes")
+def borda():           # essa função serve pra criar as bordas do menu (as linhas horizontas e verticais "delimitantes")
     W.gotoxy(1,1)
     escrever(LARGURA * "-")
     for linha in range(ALTURA):
@@ -53,8 +55,18 @@ def menu_borda():           # essa função serve pra criar as bordas do menu (a
     escrever(LARGURA * "-")
 
 def menu_opcoes(selecionada):          # função que serve para mostrar as opções do menu (Continuar jogo, Novo Jogo e Configurações)
-    for i, texto in enumerate(OPCOES):
-        W.gotoxy(63, 16 + i * 1)
+    for i, texto in enumerate(OPCOES_MENU):
+        W.gotoxy(94, 25 + i * 1)
+        if i == selecionada:
+            W.textbackground(W.LIGHTGRAY)
+            W.textcolor(W.BLACK)
+        escrever(texto.center(22))
+        W.textbackground(W.BLACK)
+        W.textcolor(W.LIGHTGRAY)
+
+def config_opcoes(selecionada):                 # é necessário criar uma função pra mostrar as opções do menu e a animação de escolha
+    for i, texto in enumerate(OPCOES_CONFIG):
+        W.gotoxy(94, 25 + i * 1)
         if i == selecionada:
             W.textbackground(W.LIGHTGRAY)
             W.textcolor(W.BLACK)
@@ -63,29 +75,44 @@ def menu_opcoes(selecionada):          # função que serve para mostrar as opç
         W.textcolor(W.LIGHTGRAY)
         
 def menu():             # essa função serve para chamar as funções de borda_menu e opcoes_menu (ela cria o menu de uma vez)
+    W.clrscr()          # limpa a tela
+    W.setcursortype(W._NOCURSOR)        # tira o cursor
+    borda()                             # desenha a borda
+    desenhar_logo()                     # desenha a logo
+    selecionada = 0                     # cria a variável selecionada que é usada na funcao menu_opcoes
+    while (True):
+        menu_opcoes(selecionada)        
+        codigo, letra = W.getch()                 # pega o valor da tecla
+        if codigo == 72 or letra == "w":          # se a tecla for o w
+            selecionada = (selecionada - 1) % len(OPCOES_MENU)      
+        elif codigo == 80 or letra == "s":        # se a tecla for s
+            selecionada = (selecionada + 1) % len(OPCOES_MENU)
+        elif codigo == 13:                        # se a tecla for enter
+            return selecionada
+
+def config():
     W.clrscr()
     W.setcursortype(W._NOCURSOR)
-    menu_borda()
-    desenhar_logo()
+    borda()
     selecionada = 0
-    while (True):
-        menu_opcoes(selecionada)
-        codigo, letra = W.getch()                 # espera a tecla
-        if codigo == 72 or letra == "w":          # cima
-            selecionada = (selecionada - 1) % len(OPCOES)
-        elif codigo == 80 or letra == "s":        # baixo
-            selecionada = (selecionada + 1) % len(OPCOES)
-        elif codigo == 13:                        # Enter
+    while(True): 
+        config_opcoes(selecionada)
+        codigo, letra = W.getch()
+        if codigo == 72 or letra == "w":
+            selecionada = (selecionada - 1) % len(OPCOES_CONFIG)
+        elif codigo == 80 or letra == "s":
+            selecionada = (selecionada + 1) % len(OPCOES_CONFIG)
+        elif codigo == 13:
             return selecionada
     
 
 opcao = menu()
 if opcao == 0:
-    # print("Você escolheu continuar o jogo") # testar se a opção esta indo certa
+    print("Você escolheu continuar o jogo") # testar se a opção esta indo certa
     pass   # continuar jogo
 elif opcao == 1:
-    # print("Você escolheu iniciar um novo jogo") # testar se a opção esta indo certa
+    print("Você escolheu iniciar um novo jogo") # testar se a opção esta indo certa
     pass   # novo jogo
 elif opcao == 2:
-    # print("Configurações") # testar se a opção esta indo certa
-    pass   # configurações
+    if config() == 1: 
+        pass
