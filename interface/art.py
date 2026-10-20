@@ -1,6 +1,7 @@
 import WConio2 as W
 from config import ALTURA, LARGURA
-from interface.tela import escrever
+import os
+
 
 def escrever(texto):                            # é necessário criar uma função de "escrever" pois o cputs não suporte imagens de 3 bytes
     print(texto, end="", flush=True)            # e é um saco ter que colocar esse end="", flush=True toda vez
@@ -29,20 +30,26 @@ LOGO_BALATRO = [
 ]
 
 MENU_LATERAL = [
-    "╔════════════════════════╗",
-    "║      ESCOLHA SEU       ║",
-    "║     PROXIMO BLIND      ║",
-    "║                        ║",
-    "║════════════════════════║",
-    "║  Pontuação:            ║",
-    "║    Fichas  x   Mult    ║",
-    "║                        ║",
-    "║════════════════════════║",
-    "║   Maos:     Descart:   ║",
-    "║                        ║",
-    "║════════════════════════║",
-    "║  Dinheiro: $           ║",
-    "╚════════════════════════╝",
+    "╔══════════════════════════════════════╗",
+    "║                                      ║",
+    "║             ESCOLHA SEU              ║",
+    "║            PROXIMO BLIND             ║",
+    "║                                      ║",
+    "╠══════════════════════════════════════╣",
+    "║                                      ║",
+    "║    Pontuação:                        ║",
+    "║                                      ║",
+    "║       Fichas    x    Mult            ║",
+    "║                                      ║",
+    "╠══════════════════════════════════════╣",
+    "║                                      ║",
+    "║     Maos:           Descart:         ║",
+    "║                                      ║",
+    "╠══════════════════════════════════════╣",
+    "║                                      ║",
+    "║    Dinheiro: $                       ║",
+    "║                                      ║",
+    "╚══════════════════════════════════════╝",
 ]
 
 def desenhar_logo():            # funcao pra desenhar a logo
@@ -54,11 +61,41 @@ def desenhar_logo():            # funcao pra desenhar a logo
         W.gotoxy(x, y + i)
         escrever(texto)
 
-def desenhar_menu_lateral():
-    largura_menu_lateral = len(MENU_LATERAL[0])
+L = 30  # largura
 
-    x = (LARGURA - largura_menu_lateral) // 2 + 1
-    y = 3
-    for i, texto in enumerate(MENU_LATERAL):
+def lin(t=""):
+    return "║" + t.center(L - 2) + "║"
+
+SEP = "╠" + "═" * (L - 2) + "╣"
+
+def desenhar_menu_lateral(x, y, e):     # os parametros é (posicao x, posicao y, e estado(objeto que tem os valores de:
+    borda()                             # Pontuacao, fichas, mult, maos, descartes e dinheiro) esta no arquivo estado.py)
+    altura = os.get_terminal_size().lines - y - 1   # de ponta a ponta
+
+    # seções: (linhas de conteúdo)
+    secoes = [
+        ["", "Escolha seu", "próximo Blind", ""],
+        ["", "Pontuação da Rodada", str(e.pontos), ""],
+        ["", "Fichas   x   Mult", f"{e.fichas}   x   {e.mult}", ""],
+        ["", "Mãos            Descartes", f"{e.maos}                 {e.descartes}", ""],
+        ["", f"Dinheiro: ${e.dinheiro}", ""],
+    ]
+
+    usadas = sum(len(s) for s in secoes) + (len(secoes) - 1) + 2  # conteúdo + SEPs + bordas
+    extra = max(0, altura - usadas)
+    por_secao, resto = divmod(extra, len(secoes))
+
+    linhas = ["╔" + "═" * (L - 2) + "╗"]
+    for i, s in enumerate(secoes):
+        vazias = por_secao + (1 if i < resto else 0)
+        metade = vazias // 2
+        linhas += [lin()] * metade
+        linhas += [lin(t) for t in s]
+        linhas += [lin()] * (vazias - metade)
+        if i < len(secoes) - 1:
+            linhas.append(SEP)
+    linhas.append("╚" + "═" * (L - 2) + "╝")
+
+    for i, linha in enumerate(linhas):
         W.gotoxy(x, y + i)
-        escrever(texto)
+        print(linha, end="", flush=True)
