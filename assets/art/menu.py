@@ -1,6 +1,6 @@
 import WConio2 as W
-from config import LARGURA, LARGURA_OPCAO, OPCOES_CONFIG, OPCOES_MENU
-from interface.art import LOGO_BALATRO, desenhar_logo, borda, escrever
+from configs.config import LARGURA, LARGURA_OPCAO, OPCOES_CONFIG, OPCOES_MENU
+from assets.art.art import LOGO_BALATRO, desenhar_logo, borda, escrever
 
 
 ''' def menu_opcoes(selecionada):          # função que serve para mostrar as opções do menu (Continuar jogo, Novo Jogo e Configurações)    

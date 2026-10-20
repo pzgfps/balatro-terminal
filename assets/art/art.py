@@ -1,5 +1,5 @@
 import WConio2 as W
-from config import ALTURA, LARGURA
+from configs.config import ALTURA, LARGURA
 import os
 
 

@@ -1,7 +1,11 @@
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from assets.art.menu import menu, configuracoes
+
 import WConio2 as W
-from interface.menu import menu, configuracoes
-from interface.art import desenhar_menu_lateral
-from estado import Estado
+from assets.art.menu import menu, configuracoes
+from assets.art.art import desenhar_menu_lateral
+from configs.estado import Estado
 
 estado = Estado()
 

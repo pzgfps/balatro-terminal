@@ -1,2 +1,2 @@
-from interface import art
+from assets.art import art
 
