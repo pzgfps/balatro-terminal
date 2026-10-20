@@ -1,5 +1,5 @@
 import WConio2 as W
-from configs.config import ALTURA, LARGURA
+from configs.config import ALTURA_BORDA, LARGURA_BORDA
 import os
 
 def escrever(texto):                            # é necessário criar uma função de "escrever" pois o cputs não suporte imagens de 3 bytes
@@ -7,25 +7,31 @@ def escrever(texto):                            # é necessário criar uma funç
 
 def borda():           # essa função serve pra criar as bordas do menu (as linhas horizontas e verticais "delimitantes")
     W.gotoxy(1,1)
-    escrever(LARGURA * "-")
-    for linha in range(ALTURA):
-        W.gotoxy(1, 2 + linha)
-        escrever("|" + (LARGURA - 2) * " " + "|")
-    W.gotoxy(1, 2 + ALTURA)
-    escrever(LARGURA * "-")
+    escrever(LARGURA_BORDA * "-")     # pega a constante largura e multiplica "-" para a criação da borda superior
+    for linha in range(ALTURA_BORDA): # pega a constante altura e usa-a em um for, porque a cada iteracao ela adiciona as bordas laterais
+        W.gotoxy(1, 2 + linha)  # 1, a mais esquerda, 2 + linha (altura)
+        escrever("|" + (LARGURA_BORDA - 2) * " " + "|") # escreve a borda esquerda, depois adiciona vários espaços vazios e depois a borda lateral direita
+    W.gotoxy(1, 2 + ALTURA_BORDA)         
+    escrever(LARGURA_BORDA * "-")     #  no final do for, ele escreve a borda inferior
 
-LOGO_BALATRO = [
-    "|--------------------------------------------------------|",
-    "|                                                        |",
-    "|    █████   ████  ██      ████  ██████ █████   ████     |",
-    "|    ██  ██ ██  ██ ██     ██  ██   ██   ██  ██ ██  ██    |",
-    "|    ██  ██ ██  ██ ██     ██  ██   ██   ██  ██ ██  ██    |",
-    "|    █████  ██████ ██     ██████   ██   █████  ██  ██    |",
-    "|    ██  ██ ██  ██ ██     ██  ██   ██   ██ ██  ██  ██    |",
-    "|    ██  ██ ██  ██ ██     ██  ██   ██   ██  ██ ██  ██    |",
-    "|    █████  ██  ██ ██████ ██  ██   ██   ██  ██  ████     |",
-    "|                                                        |",
-    "|--------------------------------------------------------|"
+LOGO_BALATRO = [ #possibilidade de logo 
+    "                              ████                       ███             ███           ███████  ",
+    " █████████           █████   ████     █████████████████████████████████████          ███████████",
+    " ███████████       ████████ ████      ██████████████████████████████████████████    ██████ █████",
+    " ████   ████      █████████████       ███████████████████    ████      ███████████  ████     ███",
+    " ████   ███      ████  ████ ███       ████████████████████   ████      ███    █████ ████     ███",
+    " ████ ████      █████  ████ ████      ████████████████████   ████      ███     ███  ████     ███",
+    " ██████████     ████  █████ ████      █████████  █████████   ████      ███    ████  ████     ███",
+    " ████████████   ███████████ ████      ███████       ██████   ████      ███   ████   ████     ███",
+    " ██████  █████  ███████████ ████      ██████    ██   ██████  ████      ███ ██████   ████     ███",
+    " █████     ████ ██████ ████ ███       █████████████████████  ████      ████████████ ████     ███",
+    " █████      █████████  ████ ████      █████████████████████  ████      ██████ █████ ████     ███",
+    " █████      ████████   ████ ████      █████████████████████  █████     ████     ████████     ███",
+    " █████       ███████   ███  ███████████████████████████████  █████     ███      ████████   █████",
+    " ███████████████████   ██   ████████████████████████████████ ████      ███      ███ ████████████",
+    "████████████████████       ████      ██████████████          ███       ███      ██    ████████  ",
+    "███████████     ███        ██        █                        █        ███      █               ",
+    "                ██                                                     ██                       ",
 ]
 
 MENU_LATERAL = [
@@ -54,11 +60,12 @@ MENU_LATERAL = [
 def desenhar_logo():            # funcao pra desenhar a logo
     largura_logo = len(LOGO_BALATRO[0]) # mede o tamanho da primeira linha da logo, pois
                                         # todas as linhas tem o mesmo tamanho
-    x = (LARGURA - largura_logo) // 2 + 1
+    x = (LARGURA_BORDA - largura_logo) // 2 + 1       # ela pega a largura da borda
     y = 3
     for i, texto in enumerate(LOGO_BALATRO):
         W.gotoxy(x, y + i)
         escrever(texto)
+
 
 L = 30  # largura
 
@@ -68,7 +75,7 @@ def lin(t=""):
 SEP = "╠" + "═" * (L - 2) + "╣"
 
 def desenhar_menu_lateral(x, y, e):     # os parametros é (posicao x, posicao y, e estado(objeto que tem os valores de:
-    borda()                             # Pontuacao, fichas, mult, maos, descartes e dinheiro) esta no arquivo estado.py)
+    borda()                             # Pontuacao, fichas, mult, maos, descartes e dinheiro), esta no arquivo estado.py)
     altura = os.get_terminal_size().lines - y - 1   # de ponta a ponta
 
     # seções: (linhas de conteúdo)
