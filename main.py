@@ -1,5 +1,6 @@
 from interface.menu import menu, configuracoes
 
+
 def main():
     while True:
         opcao = menu()
@@ -7,6 +8,7 @@ def main():
             print("Você escolheu continuar o jogo")      # testar se a opção está indo certa
             break   # continuar jogo
         elif opcao == 1:
+
             print("Você escolheu iniciar um novo jogo")  # testar se a opção está indo certa
             break   # novo jogo
         elif opcao == 2:
