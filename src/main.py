@@ -1,7 +1,5 @@
-import sys, os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from assets.art.menu import menu, configuracoes
-
+import sys, os  # aparentemente isso aqui arruma o erro que estava dando por causa dos imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))# aparentemente isso aqui arruma o erro que estava dando por causa dos imports
 import WConio2 as W
 from assets.art.menu import menu, configuracoes
 from assets.art.art import desenhar_menu_lateral
@@ -19,7 +17,7 @@ def main():
             W.clrscr()
             desenhar_menu_lateral(10, 2, estado)
             #print("Você escolheu iniciar um novo jogo")  # testar se a opção está indo certa
-            break   # novo jogo
+            break   
         elif opcao == 2:
             if configuracoes() == 1:
                 print("Você escolheu fechar o jogo, até mais!")

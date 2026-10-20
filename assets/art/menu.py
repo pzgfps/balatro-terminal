@@ -49,7 +49,7 @@ def menu():             # essa função serve para chamar as funções de borda_
     W.setcursortype(W._NOCURSOR)        # tira o cursor
     borda()                             # desenha a borda
     desenhar_logo()                     # desenha a logo
-    selecionada = 0                     # cria a variável selecionada que é usada na funcao menu_opcoes
+    selecionada = 0                     # cria a variável selecionada que é usada na funcao desenhar_opcoes
     while (True):
         desenhar_opcoes(OPCOES_MENU, selecionada)        
         codigo, letra = W.getch()                 # pega o valor da tecla

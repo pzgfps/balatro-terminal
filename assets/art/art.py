@@ -2,7 +2,6 @@ import WConio2 as W
 from configs.config import ALTURA, LARGURA
 import os
 
-
 def escrever(texto):                            # é necessário criar uma função de "escrever" pois o cputs não suporte imagens de 3 bytes
     print(texto, end="", flush=True)            # e é um saco ter que colocar esse end="", flush=True toda vez
 
