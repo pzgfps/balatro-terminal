@@ -9,12 +9,12 @@ def borda():           # essa função serve pra criar as bordas do menu (as lin
     W.gotoxy(1,1)
     escrever(LARGURA_BORDA * "-")     # pega a constante largura e multiplica "-" para a criação da borda superior
     for linha in range(ALTURA_BORDA): # pega a constante altura e usa-a em um for, porque a cada iteracao ela adiciona as bordas laterais
-        W.gotoxy(1, 2 + linha)  # 1, a mais esquerda, 2 + linha (altura)
+        W.gotoxy(1, 2 + linha)        # 1, a mais esquerda, 2 + linha (altura)
         escrever("|" + (LARGURA_BORDA - 2) * " " + "|") # escreve a borda esquerda, depois adiciona vários espaços vazios e depois a borda lateral direita
     W.gotoxy(1, 2 + ALTURA_BORDA)         
     escrever(LARGURA_BORDA * "-")     #  no final do for, ele escreve a borda inferior
 
-LOGO_BALATRO = [ #possibilidade de logo 
+LOGO_BALATRO = [ 
     "                              ████                       ███             ███           ███████  ",
     " █████████           █████   ████       ███████████████████████████████████          ███████████",
     " ███████████       ████████ ████      ██████████████████████████████████████████    ██████ █████",
@@ -66,7 +66,7 @@ def desenhar_logo():            # funcao pra desenhar a logo
         W.gotoxy(x, y + i)
         escrever(texto)
 
-
+#a partir daqui é a função desenhar_menu_lateral 
 L = 30  # largura do menu
 
 def lin(t=""):      # 

@@ -12,7 +12,7 @@ def main():
         opcao = menu_inicial()
         if opcao == 0:
             print("Você escolheu continuar o jogo")      # testar se a opção está indo certa
-            break   # continuar jogo
+            break 
         elif opcao == 1:
             W.clrscr()
             desenhar_menu_lateral(10, 2, estado)
