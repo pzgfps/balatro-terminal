@@ -16,7 +16,7 @@ def borda():           # essa função serve pra criar as bordas do menu (as lin
 
 LOGO_BALATRO = [ #possibilidade de logo 
     "                              ████                       ███             ███           ███████  ",
-    " █████████           █████   ████     █████████████████████████████████████          ███████████",
+    " █████████           █████   ████       ███████████████████████████████████          ███████████",
     " ███████████       ████████ ████      ██████████████████████████████████████████    ██████ █████",
     " ████   ████      █████████████       ███████████████████    ████      ███████████  ████     ███",
     " ████   ███      ████  ████ ███       ████████████████████   ████      ███    █████ ████     ███",
@@ -48,7 +48,7 @@ MENU_LATERAL = [
     "║                                      ║",
     "╠══════════════════════════════════════╣",
     "║                                      ║",
-    "║     Maos:           Descart:         ║",
+    "║       Maos:         Descartes:       ║",
     "║                                      ║",
     "╠══════════════════════════════════════╣",
     "║                                      ║",
@@ -67,27 +67,31 @@ def desenhar_logo():            # funcao pra desenhar a logo
         escrever(texto)
 
 
-L = 30  # largura
+L = 30  # largura do menu
 
-def lin(t=""):
+def lin(t=""):      # 
     return "║" + t.center(L - 2) + "║"
 
-SEP = "╠" + "═" * (L - 2) + "╣"
+SEP = "╠" + "═" * (L - 2) + "╣"     # ele desenha a borda lateral e a divisória (largura * "=")
 
-def desenhar_menu_lateral(x, y, e):     # os parametros é (posicao x, posicao y, e estado(objeto que tem os valores de:
-    borda()                             # Pontuacao, fichas, mult, maos, descartes e dinheiro), esta no arquivo estado.py)
-    altura = os.get_terminal_size().lines - y - 1   # de ponta a ponta
+def desenhar_menu_lateral(x, y, e):     # os parametros sao; posicao x, posicao y, e estado(objeto que tem os valores de:    
+                                         # Pontuacao, fichas, mult, maos, descartes e dinheiro. Esta no arquivo estado.py)
+    altura = os.get_terminal_size().lines - y - 1   # pega a altura do terminal e diminui pra nao ultrapssar a borda
 
     # seções: (linhas de conteúdo)
-    secoes = [
-        ["", "Escolha seu", "próximo Blind", ""],
-        ["", "Pontuação da Rodada", str(e.pontos), ""],
-        ["", "Fichas   x   Mult", f"{e.fichas}   x   {e.mult}", ""],
-        ["", "Mãos            Descartes", f"{e.maos}                 {e.descartes}", ""],
-        ["", f"Dinheiro: ${e.dinheiro}", ""],
+    secoes = [                      # listas dentro de uma lista, ("") serve para criar uma linha vazia
+        ["", "Escolha seu", "próximo Blind", ""],       
+        ["", "Pontuação da Rodada", str(e.pontos), ""], # transforma os pontos em string p imprimir
+        ["", "Fichas   x   Mult", f"{e.fichas}   x   {e.mult}", ""], # f para formatar, ai nao precisa transformar em string
+        ["", "Mãos     Descartes", f"{e.maos}           {e.descartes}", ""],
+        ["", "", f"Dinheiro: ${e.dinheiro}", ""],
     ]
 
-    usadas = sum(len(s) for s in secoes) + (len(secoes) - 1) + 2  # conteúdo + SEPs + bordas
+    total = 0   
+    for s in secoes:    # for para descobrir quantas linhas e colunas deverao ser desenhadas
+        total += len(s) # vai pegar o tamanho de cada lista
+    usadas = total + (len(secoes) - 1) + 2  # ele pega quantas linhas ja estao "reservadas" para serem obrigatoriamente
+
     extra = max(0, altura - usadas)
     por_secao, resto = divmod(extra, len(secoes))
 
@@ -104,4 +108,4 @@ def desenhar_menu_lateral(x, y, e):     # os parametros é (posicao x, posicao y
 
     for i, linha in enumerate(linhas):
         W.gotoxy(x, y + i)
-        print(linha, end="", flush=True)
+        escrever(linha)
