@@ -1,6 +1,5 @@
-import WConio2 as W
 from dataclasses import dataclass
-from enum import Enum, auto
+from enum import Enum
 
 # a carta devera ser criada como um objeto, porque ela precisa armazenar o valor de naipe e rank, e
 # nada mais além disso.
@@ -12,6 +11,7 @@ class Naipe(Enum):  # Criacao de um novo tipo de variavel Naipe (enum)
     ESPADAS = "♠"
 
 class Rank(Enum):   # # Criacao de um novo tipo de variavel Rank (enum)
+    
     AS = ("A", 11)  # o As vai ter o ícone de A e o valor de pontos 11
     DOIS = ("2", 2) # o dois vai ter o ícone e valor de 2
     TRES = ("3", 3) # o tres vai ter o ícone e valor de 3
@@ -35,4 +35,15 @@ class Carta:    # o class junto com o dataclass cria o objeto carta
     naipe: Naipe    # atributo do objeto carta (Naipe é um tipo de variavel Naipe)
     rank: Rank      # atributo do objeto carta (Rank é um tipo de variavel Rank)
 
+    @property
+    def pontos(self):
+        """Pontos base da carta (Ás = 11 por padrão)."""
+        return self.rank.pontos
 
+    @property
+    def rotulo(self):
+        """Ex: 'A♠', '10♥', 'K♦'."""
+        return f"{self.rank.simbolo}{self.naipe.value}"
+
+    def __str__(self):
+        return self.rotulo
