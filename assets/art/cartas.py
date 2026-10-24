@@ -1,15 +1,5 @@
 import WConio2 as W
 
-'''
-COR_NAIPE = {
-    "copas":W.RED,
-    "ouros": W.RED,
-    "paus": W.BLACK,
-    "espadas": W.BLACK
-}
-
-'''
-
 naipes = {"copas": "♥", "ouros": "♦", "paus": "♣", "espadas": "♠"} #Dicionario nome do naipe e simbolo que aparece na carta
 valores = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"] #Lista dos valores das cartas
 
@@ -17,15 +7,17 @@ def montar_carta(valor, simbolo):
     topo = valor.ljust(3) # valor alinhado à esquerda ocupando (x) espaços
     base = valor.rjust(3) # valor alinhado à direita ocupando (x) espaços
     return [
-         "┌───────────┐",
-        f"│ {topo}       │",
-        "│           │",
-        "│           │",
-        f"│     {simbolo}     │",
-        "│           │",
-        "│           │",
-        f"│       {base} │",
-        "└───────────┘",
+           "┌─────────────┐",
+        f"│ {topo}         │",
+        "│             │",
+        "│             │",
+        "│             │",
+        f"│      {simbolo}      │",
+        "│             │",
+        "│             │",
+        "│             │",
+        f"│         {base} │",
+        "└─────────────┘",
 
     ]
 
