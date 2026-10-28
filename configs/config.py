@@ -8,6 +8,9 @@ LARGURA_OPCAO = 30    #
 LARGURA_BOTAO = 25
 ESPACO = 5
 
+# art.py - 
+LARGURA_MENU_LATERAL = 30    # largura do menu lateral (contando as duas bordas)
+
 # menu.py - 
 OPCOES_MENU = ["Continuar", "Novo Jogo", "Configurações"]   # lista constante para mostrar as opções da aba menu
 OPCOES_CONFIG = ["Voltar", "Sair"]                          # lista constante para mostrar as opções da aba de configurações
