@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-import random
 
 @dataclass
 class Carta:
@@ -16,8 +15,14 @@ class Carta:
     def linhas(self):               #Desenha a carta linha por linha permitindo printar cartas uma do lado da outra
         return CARTAS[(self.valor, self.naipe)]
 
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-                                                    #Desenhos das cartas separados por ESPADAS, COPAS, OUROS, PAUS
+
+def desenhar_mao(mao):
+    for i in range(6):
+        print(" ".join(carta.linhas()[i] for carta in mao))
+
+#----------------------------------------------------------------------------------------------------------------------#
+                        #Desenhos das cartas separados por ESPADAS, COPAS, OUROS, PAUS
+
 
 CORINGA = [
     r" _____ ",

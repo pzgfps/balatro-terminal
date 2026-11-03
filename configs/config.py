@@ -15,3 +15,21 @@ LARGURA_MENU_LATERAL = 30    # largura do menu lateral (contando as duas bordas)
 OPCOES_MENU = ["Continuar", "Novo Jogo", "Configurações"]   # lista constante para mostrar as opções da aba menu
 OPCOES_CONFIG = ["Voltar", "Sair"]                          # lista constante para mostrar as opções da aba de configurações
 
+VALORES = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] 
+NAIPES = ["ouros", "espadas", "copas", "paus"] 
+
+# --- variaveis globais ---
+TAMANHO_MAO = 8             # cartas na mão do jogador
+MAX_JOGADAS = 5             # máximo de cartas por jogada
+MAOS_INICIAIS = 4
+DESCARTES_INICIAIS = 3
+DINHEIRO_INICIAL = 4
+
+# --- tamanho do desenho da carta ---
+LARGURA_CARTA = 7
+ALTURA_CARTA = 6
+
+# --- teclas ---
+SETA_ESQUERDA = 75
+SETA_DIREITA = 77
+ENTER = 13

@@ -1,15 +1,22 @@
-import carta
-from carta import Carta
-#from carta import CARTAS
 import random
 
-VALORES = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"] 
+from configs.rules.carta import Carta
+from configs.config import VALORES, NAIPES
 
-NAIPES = ["ouros", "espadas", "copas", "paus"] 
+"""         É assim que deixa o import mais padronizado
+import random                              # 1. biblioteca do Python
+import shutil
 
-#Criando o baralho ordenado, a função de embaralhar deve aparecer apenas quando a rodada começar
-baralho = [Carta(valor, naipe) for naipe in NAIPES for valor in VALORES]
-random.shuffle(baralho)
+import WConio2 as W                        # 2. biblioteca instalada (pip)
+
+from configs.rules.carta import Carta      # 3. seus arquivos
+from configs.config import LARGURA_BORDA"""
+
+#Criando o baralho aleatório
+def criar_baralho():
+    baralho = [Carta(valor, naipe) for naipe in NAIPES for valor in VALORES]
+    random.shuffle(baralho)
+    return baralho
 
 
 
