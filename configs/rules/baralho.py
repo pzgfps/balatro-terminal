@@ -18,15 +18,10 @@ def criar_baralho():
     random.shuffle(baralho)
     return baralho
 
-
-
-
-
-
-
-
-
-
+def comprar_cartas(mao, baralho, tamanho_mao):
+    while len(mao) < tamanho_mao and len(baralho) > 0:
+        mao.append(baralho.pop())    # tira do baralho e coloca na lista mao
+        
 
 
 
