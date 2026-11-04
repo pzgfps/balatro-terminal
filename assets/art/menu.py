@@ -2,6 +2,8 @@ import WConio2 as W
 from configs.config import LARGURA_BORDA, LARGURA_OPCAO, OPCOES_CONFIG, OPCOES_MENU, LARGURA_BOTAO, ESPACO
 from assets.art.art import LOGO_BALATRO, desenhar_logo, borda, escrever
 
+# ----------------------------------------------------Desenhar as Opções-------------------------------------------------------------#
+
 def desenhar_opcoes(OPCOES, selecionada):       # funcao para desenhar as opcoes (para alterar as opcoes basta alterar o parametro OPCOES)
     total = len(OPCOES) * LARGURA_BOTAO + (len(OPCOES) - 1) * ESPACO
     x = (LARGURA_BORDA - total) // 2 + 1              # centraliza o conjunto de botões
@@ -9,12 +11,17 @@ def desenhar_opcoes(OPCOES, selecionada):       # funcao para desenhar as opcoes
     
     for i, texto in enumerate(OPCOES):
         W.gotoxy(x + i * (LARGURA_BOTAO + ESPACO), y)     # y fixo, só o x muda
-        if i == selecionada:
+        if i == selecionada:                              # se o 'i' for selecionada ele vai deixar com o fundo cinza e o texto preto
             W.textbackground(W.LIGHTGRAY)
             W.textcolor(W.BLACK)
-        escrever(texto.center(LARGURA_BOTAO))
-        W.textbackground(W.BLACK)
+        escrever(texto.center(LARGURA_BOTAO))             # vai escrever as outras opções com o fundo preto e a cor cinza
+        W.textbackground(W.BLACK)                         # ou seja, são opções que não estão selecionadas
         W.textcolor(W.LIGHTGRAY)
+
+# ------------------------------------------------------------------------------------------------------------------------------------#
+
+# ----------------------------------------------------Desenhar os Menus---------------------------------------------------------------#
+
 
 def menu_inicial():             # essa função serve para chamar as funções de borda() e desenhar_opcoes() (ela cria o menu de uma vez)
     W.clrscr()                  # limpa a tela
@@ -34,9 +41,9 @@ def menu_inicial():             # essa função serve para chamar as funções d
 
 def menu_configuracoes():            # funcao para criar o menu de configuracoes
     W.clrscr()
-    W.setcursortype(W._NOCURSOR)
-    borda()
-    desenhar_logo()  
+    W.setcursortype(W._NOCURSOR)    # funcao pra tirar o cursor do terminal
+    borda()                         # chama a funcao de desenhar a borda
+    desenhar_logo()                 # chama a funcao de desenhar logo
     selecionada = 0
     while(True): 
         desenhar_opcoes(OPCOES_CONFIG, selecionada)
@@ -47,3 +54,5 @@ def menu_configuracoes():            # funcao para criar o menu de configuracoes
             selecionada = (selecionada + 1) % len(OPCOES_CONFIG)
         elif codigo == 13:
             return selecionada
+
+# ------------------------------------------------------------------------------------------------------------------------------------#
