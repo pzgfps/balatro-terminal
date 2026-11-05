@@ -2,7 +2,7 @@ from collections import Counter
 
 from configs.config import VALORES
 
-MAOS = {
+MAOS = {                                   #um dicionario que é acessado pelo nome da jogada e devolve o número de fichas e o mult que ela pontua
     "Carta Alta":     (5, 1),
     "Par":            (10, 2),
     "Dois Pares":     (20, 2),
@@ -14,6 +14,7 @@ MAOS = {
     "Straight Flush": (100, 8),
     "Royal Flush":    (100, 8)
 }
+
 
 # cada funcao is_ confere se as cartas formam EXATAMENTE aquela mao (ex: um Full House nao conta como Par nem como Trinca)
 
@@ -40,7 +41,6 @@ def is_full_house(cartas):
 def is_quadra(cartas):
     repeticoes = contar_repeticoes(cartas)
     return 4 in repeticoes                                      # um valor repetido 4 vezes (a quinta carta, se tiver, nao importa)
-
 
 def is_flush(cartas):
     if len(cartas) != 5:      #um flush deve ter 5 cartas
