@@ -2,7 +2,8 @@ import sys, os  # aparentemente isso aqui arruma o erro que estava dando por cau
 import WConio2 as W
 
 from assets.art.menu import menu_inicial, menu_configuracoes    # chamando as funcoes do menu
-from assets.art.art import desenhar_menu_lateral, borda                # chamando a funcao de menu_lateral
+from assets.art.menu_lateral import desenhar_menu_lateral                 # chamando a funcao de menu_lateral
+from assets.art.base import borda
 from configs.estado import Estado                               # chamando o objeto estado para a visualização dos dados
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) # aparentemente isso aqui arruma o erro que estava dando por causa dos imports

@@ -1,6 +1,7 @@
 import WConio2 as W
 from configs.config import LARGURA_BORDA, LARGURA_OPCAO, OPCOES_CONFIG, OPCOES_MENU, LARGURA_BOTAO, ESPACO
-from assets.art.art import LOGO_BALATRO, desenhar_logo, borda, escrever
+from assets.art.logo import LOGO_BALATRO, desenhar_logo
+from assets.art.base import borda, escrever
 
 # ----------------------------------------------------Desenhar as Opções-------------------------------------------------------------#
 
