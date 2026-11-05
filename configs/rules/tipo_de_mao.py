@@ -15,6 +15,13 @@ MAOS = {                                   #um dicionario que é acessado pelo n
     "Royal Flush":    (100, 8)
 }
 
+def identificar_valores(cartas, fichas):
+    for carta in cartas: 
+        if carta.valor == "J" or carta.valor == "Q" or carta.valor == "K" or carta.valor == "A":
+            fichas += 10
+        else:
+            fichas += int(carta.valor)
+    return fichas
 
 # cada funcao is_ confere se as cartas formam EXATAMENTE aquela mao (ex: um Full House nao conta como Par nem como Trinca)
 
