@@ -5,6 +5,7 @@ from assets.art.menu import menu_inicial, menu_configuracoes    # chamando as fu
 from assets.art.menu_lateral import desenhar_menu_lateral                 # chamando a funcao de menu_lateral
 from assets.art.base import borda
 from configs.estado import Estado                               # chamando o objeto estado para a visualização dos dados
+from assets.art.menu_compra import rodar_loja
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) # aparentemente isso aqui arruma o erro que estava dando por causa dos imports
 
@@ -37,8 +38,7 @@ def main():
             W.clrscr()
             borda()
             desenhar_menu_lateral(10, 2, estado)
-            
-            #print("Você escolheu iniciar um novo jogo")  # testar se a opção está indo certa
+            rodar_loja(estado, 42)
             break   
         elif opcao == 2:
             if menu_configuracoes() == 1:
