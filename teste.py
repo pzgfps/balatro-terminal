@@ -1,6 +1,6 @@
 # ===== IMPORTS =====
 from configs.rules.carta import Carta, desenhar_mao
-from configs.rules.tipo_de_mao import identificar_mao, identificar_valores, MAOS
+from configs.pontuacao import calcular_jogada
 from configs.rules.baralho import criar_baralho, comprar_cartas
 from configs.rules.coringa import CoringaJoker, CoringaMisprint, CoringaCavendish, CoringaMysticSummit
 
@@ -28,37 +28,16 @@ maoJogador = [Carta("K", "copas"), Carta("K", "paus"), Carta("K", "ouros"), Cart
 
 
 # ===== CONFIGURAÇÃO INICIAL =====
-pontuacao = 0
 baralho = criar_baralho()
 coringasJogador = [CoringaMysticSummit()]
+descartes = 0       # com 0 descartes o Cume Místico ativa
 
 
 # ===== JOGADA =====
 desenhar_mao(maoJogador)
 
-jogada = maoJogador
-nomeJogada = identificar_mao(jogada)
-print(nomeJogada)
+nome, fichas, mult, pontuacao = calcular_jogada(maoJogador, coringasJogador, descartes)
 
-# ===== FICHAS E MULTIPLICADOR =====
-fichas, mult = MAOS[identificar_mao(maoJogador)]
-
-fichas += identificar_valores(maoJogador, pontuacao)
-
-print(f"Pontos da carta: {fichas}")
-
+print(nome)
 print(f"Fichas: {fichas} Mult: {mult}")
-print(f"Pontuacao: {pontuacao}")
-
-
-# ===== EFEITO DOS CORINGAS =====
-descarte = 0
-for coringa in coringasJogador:
-    mult = coringa.efeito(pontuacao, mult, descarte)
-
-print(f"Mult após o efeito dos Coringas: {mult}")
-
-
-# ===== PONTUAÇÃO FINAL =====
-pontuacao = (fichas * mult)
 print(f"Pontuacao Final: {pontuacao}")
