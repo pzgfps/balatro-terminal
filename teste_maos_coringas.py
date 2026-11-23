@@ -16,7 +16,7 @@ jogadas = [
     [Carta("10", "espadas"), Carta("J", "espadas"), Carta("Q", "espadas"), Carta("K", "espadas"), Carta("A", "espadas")],   # royal flush
 ]
 
-coringas = [CoringaJoker(), CoringaCavendish(), CoringaMysticSummit()]     # lista de coringas diferentes (polimorfismo: todos tem o efeito())
+coringas = [CoringaJoker(), CoringaCavendish(), CoringaMysticSummit()]     # lista de coringas diferentes (polimorfismo: todos tem efeito_fichas() e efeito_mult())
 descartes = 0       # com 0 descartes o Cume Místico também ativa
 
 for jogada in jogadas:
@@ -24,8 +24,9 @@ for jogada in jogadas:
     fichas, mult = MAOS[nome]           # pega as fichas e o mult dessa mao no dicionario
     pontos = fichas * mult              # pontuacao sem coringas
 
-    for coringa in coringas:            # cada coringa mexe no mult, um depois do outro (a ordem muda o resultado!)
-        mult = coringa.efeito(fichas, mult, descartes)
+    for coringa in coringas:            # cada coringa mexe nas fichas e no mult, um depois do outro (a ordem muda o resultado!)
+        fichas = coringa.efeito_fichas(fichas, descartes)
+        mult = coringa.efeito_mult(mult, descartes)
     pontos_com_coringas = fichas * mult
 
     print(f"{nome:15s} {fichas:>3} x {MAOS[nome][1]:<2} = {pontos:>4}   |   com coringas: {fichas:>3} x {mult:<3} = {pontos_com_coringas}")

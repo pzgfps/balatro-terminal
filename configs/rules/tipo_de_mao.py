@@ -15,9 +15,17 @@ MAOS = {                                   #um dicionario que é acessado pelo n
     "Royal Flush":    (100, 8)
 }
 
-def identificar_valores(cartas, fichas):
-    for carta in cartas: 
-        if carta.valor == "J" or carta.valor == "Q" or carta.valor == "K" or carta.valor == "A":
+def identificar_valores(cartas, nome_mao):       # soma as fichas das cartas que PONTUAM naquela mao (as outras ficam de fora)
+    if nome_mao == "Carta Alta":
+        cartas = [max(cartas, key=lambda carta: VALORES.index(carta.valor))]    # so a maior carta
+
+    elif nome_mao in ("Par", "Dois Pares", "Trinca", "Quadra"):
+        contagem = Counter(carta.valor for carta in cartas)
+        cartas = [carta for carta in cartas if contagem[carta.valor] >= 2]      # so as repetidas
+
+    fichas = 0
+    for carta in cartas:
+        if carta.valor in ("J", "Q", "K", "A"):
             fichas += 10
         else:
             fichas += int(carta.valor)
